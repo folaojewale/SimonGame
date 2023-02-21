@@ -1,0 +1,25 @@
+.circle {
+    height: 300px;
+    width: 300px;
+    background-color:rgb(0, 0, 0);
+    border-radius: 50%;
+    position:fixed;
+    top: 30%;
+    z-index: -1;
+}
+.center {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+buttons.seq{
+    height: 150px;
+    width: 150px;
+    background-color:rgb(green);
+    border-radius: 50%;
+    position:fixed;
+
+     top: 30%;
+
+}
