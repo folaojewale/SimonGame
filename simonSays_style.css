@@ -1,9 +1,9 @@
-.circle {
+.central {
     height: 300px;
     width: 300px;
     background-color:rgb(0, 0, 0);
     border-radius: 50%;
-    position:fixed;
+    position:absolute;
     top: 30%;
     z-index: -1;
 }
@@ -13,13 +13,64 @@
     justify-content: center;
   }
 
-buttons.seq{
-    height: 150px;
-    width: 150px;
-    background-color:rgb(green);
-    border-radius: 50%;
-    position:fixed;
-
-     top: 30%;
-
+.Start{
+    cursor: pointer;
 }
+button.highscore,button.currentScore,button.Start{
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 20px;
+    margin: 4px 2px;
+}
+.circle{
+    height: 170px;
+    width: 170px;
+    border-radius: 50%;
+    border-width: 10px;
+    border-color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+div.buttonheight{
+    position:absolute;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    padding: 390px;
+}
+#onOff{
+    height: 10px;
+    width: 10px;
+    background-color:rgb(255, 0, 0);
+    border-radius: 50%;
+    position:absolute;
+    top: 50%;
+}
+.green{
+    position:absolute;
+    background-color:rgb(2, 255, 78);
+    left: 740px;
+    top: 200px;
+}
+.blue
+{
+    position:absolute;
+    background-color:rgb(50, 50, 184);
+    left: 990px;
+    top: 460px;
+}
+.red{
+    position:absolute;
+    background-color:rgb(207, 7, 7);
+    left: 990px;
+    top: 200px;
+}
+.yellow{
+    position:absolute;
+    background-color:rgb(248, 248, 8);
+    left: 740px;
+    top: 460px;
+}
+.onOff2{
+    background-color:rgb(51, 255, 0);
+}
+
