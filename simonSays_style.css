@@ -1,76 +1,93 @@
 .central {
-    height: 300px;
-    width: 300px;
-    background-color:rgb(0, 0, 0);
-    border-radius: 50%;
-    position:absolute;
-    top: 30%;
-    z-index: -1;
+  height: 300px;
+  width: 300px;
+  background-color:rgb(0, 0, 0);
+  border-radius: 50%;
+  position:absolute;
+  top: 30%;
+  z-index: -1;
 }
 .center {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-  }
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
 
 .Start{
-    cursor: pointer;
+  cursor: pointer;
 }
-button.highscore,button.currentScore,button.Start{
-    color: rgb(0, 0, 0);
-    text-align: center;
-    font-size: 20px;
-    margin: 4px 2px;
+#highscore,#currentScore,#Start{
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 20px;
+  margin: 4px 2px;
 }
 .circle{
-    height: 170px;
-    width: 170px;
-    border-radius: 50%;
-    border-width: 10px;
-    border-color: rgb(0, 0, 0);
-    cursor: pointer;
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+  border-width: 10px;
+  border-color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 div.buttonheight{
-    position:absolute;
-    height: 5vh;
-    display: flex;
-    justify-content: center;
-    padding: 390px;
+  position:absolute;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  padding: 390px;
 }
 #onOff{
-    height: 10px;
-    width: 10px;
-    background-color:rgb(255, 0, 0);
-    border-radius: 50%;
-    position:absolute;
-    top: 50%;
+  height: 10px;
+  width: 10px;
+  background-color:rgb(255, 0, 0);
+  border-radius: 50%;
+  position:absolute;
+  top: 50%;
 }
 .green{
-    position:absolute;
-    background-color:rgb(2, 255, 78);
-    left: 740px;
-    top: 200px;
+  position:absolute;
+  background-color:rgb(0, 117, 35);
+  /*on color rgb(2, 255, 78)*/
+  left: 600px;
+  top: 22%;
 }
 .blue
 {
-    position:absolute;
-    background-color:rgb(50, 50, 184);
-    left: 990px;
-    top: 460px;
+  position:absolute;
+  background-color:rgb(23, 25, 126);
+  /* on color rgb(97, 99, 231)*/
+  left: 890px;
+  top: 460px;
 }
 .red{
-    position:absolute;
-    background-color:rgb(207, 7, 7);
-    left: 990px;
-    top: 200px;
+  position:absolute;
+  background-color:rgb(85, 2, 2);
+  /*on color rgb(226, 12, 12)  */
+  left: 890px;
+  top: 200px;
+  
 }
 .yellow{
-    position:absolute;
-    background-color:rgb(248, 248, 8);
-    left: 740px;
-    top: 460px;
+  position:absolute;
+  background-color:rgb(110, 110, 1);
+  /*on color rgb(248, 248, 8)*/
+  left: 600px;
+  top: 460px;
 }
 .onOff2{
-    background-color:rgb(51, 255, 0);
+  background-color:rgb(51, 255, 0);
 }
 
+.red:active{
+  background-color: rgb(226, 12, 12);
+}
+.yellow:active{
+  background-color: rgb(248, 248, 8);
+}
+.green:active{
+  background-color: rgb(2, 255, 78);
+}
+.blue:active{
+  background-color: rgb(97, 99, 231);
+}
