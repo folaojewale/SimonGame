@@ -1,5 +1,5 @@
 function game(){
-    var size =10;
+    var size =7;
     var gameSequence =[];
     var p=0;
     const sleep = (time) => {
@@ -7,7 +7,7 @@ function game(){
   }
   
   const doSomething = async () => {
-    for(var i=0;i<10;i++){
+    for(var i=0;i<size;i++){
       gameSequence[p]= Math.floor(Math.random() * 4);
       var show = gameSequence[i];
       await sleep(1000)
@@ -19,12 +19,11 @@ function game(){
     //       break;
     //   }
     //     if(playerAnswer(gameSequence)){}
-      size++;
+      //size++;
        p++;
   } 
   }
   doSomething();
-    
   }
   function playerAnswer(gameSequence){
     var testSequence = gameSequence;
@@ -40,32 +39,12 @@ function game(){
     return true;
   }
   
-  function start() {
-    console.log("game has started");
-    game();
-    console.log("game has started2");
-  
-  }
-  const lightOn= async()=>{
-    document.getElementById("onOff").style.backgroundColor = "green";
-    game();
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
   function lightButton(show){
     if(show==0){
       setTimeout(() => {
         document.getElementById("greenButton").style.backgroundColor="rgb(0, 117, 35)";
       }, 700);
       document.getElementById("greenButton").style.backgroundColor="rgb(2, 255, 78)";
-      document.getElementById("greenButton").className= document.getElementById("greenButton").className.replace(".green",".green");
       console.log("0");
   }
   else if(show==1){
@@ -97,6 +76,11 @@ function game(){
   
   
   
+
+
+
+
+
   //code that works 
   
   
@@ -133,3 +117,12 @@ function game(){
     }
   }
   
+  const lightOn= async()=>{
+    //turns the button green
+    
+    document.getElementById("onOff").style.backgroundColor = "green";
+    //** MUST ADD 3 SECOND DELAY**/
+    setTimeout(game,3000)
+    //excutes game function or starts the game
+    
+  }
