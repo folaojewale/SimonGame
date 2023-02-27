@@ -49,22 +49,22 @@ div.buttonheight{
   position:absolute;
   background-color:rgb(0, 117, 35);
   /*on color rgb(2, 255, 78)*/
-  left: 600px;
-  top: 22%;
+  left: 240px;
+  top: 200px;
 }
 .blue
 {
   position:absolute;
   background-color:rgb(23, 25, 126);
   /* on color rgb(97, 99, 231)*/
-  left: 890px;
+  left: 500px;
   top: 460px;
 }
 .red{
   position:absolute;
   background-color:rgb(85, 2, 2);
   /*on color rgb(226, 12, 12)  */
-  left: 890px;
+  left: 500px;
   top: 200px;
   
 }
@@ -72,7 +72,7 @@ div.buttonheight{
   position:absolute;
   background-color:rgb(110, 110, 1);
   /*on color rgb(248, 248, 8)*/
-  left: 600px;
+  left: 240px;
   top: 460px;
 }
 .onOff2{
@@ -92,6 +92,3 @@ div.buttonheight{
   background-color: rgb(97, 99, 231);
 }
 /*works with box shadow*/
-.circle:active{
-  box-shadow: 0 0 20px 20px white;
-}
