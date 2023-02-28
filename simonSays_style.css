@@ -12,7 +12,6 @@
   display: flex;
   justify-content: center;
 }
-
 .Start{
   cursor: pointer;
 }
@@ -78,7 +77,6 @@ div.buttonheight{
 .onOff2{
   background-color:rgb(51, 255, 0);
 }
-
 .red:active{
   background-color: rgb(226, 12, 12);
 }
@@ -91,4 +89,4 @@ div.buttonheight{
 .blue:active{
   background-color: rgb(97, 99, 231);
 }
-/*works with box shadow*/
+
