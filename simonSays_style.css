@@ -77,6 +77,19 @@ div.buttonheight{
 .onOff2{
   background-color:rgb(51, 255, 0);
 }
+.redActive{
+  background-color: rgb(226, 12, 12);
+}
+.yellowActive{
+  background-color: rgb(248, 248, 8);
+}
+.greenActive{
+  background-color: rgb(2, 255, 78);
+}
+.blueActive{
+  background-color: rgb(97, 99, 231);
+}
+
 .red:active{
   background-color: rgb(226, 12, 12);
 }
@@ -89,4 +102,3 @@ div.buttonheight{
 .blue:active{
   background-color: rgb(97, 99, 231);
 }
-

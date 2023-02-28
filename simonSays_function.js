@@ -1,129 +1,99 @@
-const greenbutton = document.getElementById("greenButton")
-const redbutton = document.getElementById("redButton")
-const yellowbutton = document.getElementById("yellowButton")
-const bluebutton = document.getElementById("blueButton")
-function getPromiseFromEvent(item, event) {
-  return new Promise((resolve) => {
-    const listener = () => {
-      item.removeEventListener(event, listener);
-      resolve();
+// code reference https://www.youtube.com/watch?v=W0MxUHlZo6U
+
+const greenbutton = document.querySelector(".green")
+const redbutton = document.querySelector(".red")
+const yellowbutton = document.querySelector(".yellow")
+const bluebutton = document.querySelector(".blue")
+//created to allow the interval time to changed
+let time = 1000;
+//added to control wether or not the user and start clicking buttons
+let proceed =false;
+const buttons = () =>{
+  const colours =[
+    greenbutton,
+    redbutton,
+    yellowbutton,
+    bluebutton
+  ]
+  //returns random number between 0 and 3
+  return colours[parseInt(Math.random() * colours.length)];
+}
+
+let order = [buttons()];
+let playerOrder = [...order]; 
+
+//flash takes in a parameter from the colours array and turn is on and off based on the class name
+const flash = circle =>{
+  return new Promise((resolve, reject) => {
+    if(circle.className==='circle red'){
+      circle.className += ' redActive';
     }
-    item.addEventListener(event, listener);
+    if(circle.className==='circle blue'){
+      circle.className += ' blueActive';
+    }
+    if(circle.className==='circle yellow'){
+      circle.className += ' yellowActive';
+    }
+    if(circle.className==='circle green'){
+      circle.className += ' greenActive';
+    }
+    setTimeout(() => {
+      circle.className = circle.className.replace(" redActive",'')
+      circle.className = circle.className.replace(" yellowActive",'')
+      circle.className = circle.className.replace(" greenActive",'')
+      circle.className = circle.className.replace(" blueActive",'')
+     
+      setTimeout(() => {
+        resolve();
+      }, 250);
+    }, time);
   })
 }
-async function game(){
-  var size =1;
-  var gameSequence =[];
-  var p=0;
- 
-const playSequcence = async (callback) => {
-  for(var i=0;i<size;i++){
-    gameSequence[p]= Math.floor(Math.random() * 0);
-    var show = gameSequence[i];
-    await sleep(1000)
-    lightButton(show);
-    p++;
-  } 
-  callback;   
-}
-await playSequcence();
-playerAnswer(gameSequence)
 
-}
-
-async function playerAnswer(gameSequence){
-  
-  var testSequence = gameSequence;
-//takes in gameSequence array and loops throw it using buttonNumberPressed to check it's correct.
-  for(var i=0;i<testSequence.length;i++)
-  {
-    var ans =await waitButtonNumberPressed()
-    if(testSequence[i]!=ans){
-      //incorrect answer
-      gameOver();
-      console.log("false");
-      flashAmount(3);
-      return false;
+const game = circle => {
+  if(!proceed)return;
+  const ans = playerOrder.shift();
+  //continuosuly compares the the current position in sequnce to the parameter 
+  if(ans===circle){
+    //checks if the player has answered all the sequences 
+    if(playerOrder.length===0){
+      //progress if the correct button is clicked
+      order.push(buttons())
+      //time increses based on the length of the sequence 
+      if(order.length>4){time = 800}
+      if(order.length>8){time = 600}
+      if(order.length>12){time = 400}
+      playerOrder = [...order]
+      onButton();
     }
- }
- //correct game continues  
- flashAmount(2);
- console.log("end");
- document.getElementById("currentScore").innerHTML++;
- return true;
+  }
+  else{
+    //failed
+    //generates a new order of sequences and copys it to the the new order the player must replay if the player want to play again
+    proceed = false;
+    order = [buttons()];
+    playerOrder = [...order]; 
+    gameOver();
+  }
 }
-
-function lightButton(show){
-  if(show==0){
-    setTimeout(() => {
-    //document.getElementById("greenButton").style.backgroundColor="rgb(0, 117, 35)";
-    document.querySelector(".green").style.backgroundColor= "rgb(0, 117, 35)";
-    }, 700);
-    //document.getElementById("greenButton").style.backgroundColor="rgb(2, 255, 78)";
-    document.querySelector(".green").style.backgroundColor= "rgb(2, 255, 78)";
-    console.log("0");
-}
-  if(show==1){
-  setTimeout(() => {
-    document.querySelector(".red").style.backgroundColor="rgb(85, 2, 2)";
-  }, 700);
-    document.querySelector(".red").style.backgroundColor="rgb(226, 12, 12)";
-    console.log("1");
-    }
- if(show==2){
-  setTimeout(() => {
-    document.querySelector(".yellow").style.backgroundColor="rgb(110, 110, 1)";
-  }, 700);
-  document.querySelector(".yellow").style.backgroundColor="rgb(248, 248, 8)";
-    console.log("2");
-   }
- if(show==3){
-  setTimeout(() => {
-    document.querySelector(".blue").style.backgroundColor="rgb(23, 25, 126)";
-  }, 700);
-  document.querySelector(".blue").style.backgroundColor="rgb(97, 99, 231)";
-    console.log("3");
-    }   
-}
-
-
-
-
-
-
-
-
-
-
-
-async function waitButtonNumberPressed(){
- 
-  //checks what button has been pressed by returning a number based on the button read from left to right
-     (await getPromiseFromEvent(greenbutton, "click"))
-  {
-    console.log(0 +" pressed");
-    return 0;
+const onButton = async () => {
+  proceed = false;
+  if(order.length>1){
+    await flashAmount(2);
+     document.getElementById("currentScore").innerHTML++;
   }
-   (await getPromiseFromEvent(redbutton, "click"))
-  {
-    console.log(1 +" pressed");
-    return 1;
+  await sleep(1500)
+  for(const colours of order){
+    await flash(colours);
   }
-   (await getPromiseFromEvent(yellowbutton, "click"))
-  {
-    console.log(2 +" pressed");
-    return 2;
-  }
-  (await getPromiseFromEvent(bluebutton, "click"))
-  {
-    console.log(3 +" pressed");
-    return 3;
-  }
+  proceed = true;
 }
 
 
 //code that works 
-function gameOver(){
+const gameOver = async() =>{
+  await flashAmount(3);
+  await sleep(700)
   //checks if the current score is greater than the highscore after failure and changes the highscore if so.
     if(document.getElementById("currentScore").innerHTML > document.getElementById("highscore").innerHTML){
       document.getElementById('highscore').innerHTML = document.getElementById("currentScore").innerHTML;
@@ -133,18 +103,13 @@ function gameOver(){
   document.getElementById("onOff").style.backgroundColor = "red";
 }
 
-function buttonNumberPressed(X){
-  //checks what button has been pressed by returning a number based on the button read from left to right
-  console.log(X);
-  return X;
-}
 
 const lightOn= async()=>{
   //turns the button green
   document.getElementById("onOff").style.backgroundColor = "green";
   //** 3 SECOND DELAY**/
   //excutes game function or starts the game
-  setTimeout(game,3100)
+  setTimeout(onButton,3100)
 }
 
 const flashAmount = async (X) => {
@@ -152,18 +117,19 @@ const flashAmount = async (X) => {
   for(var i=0;i<X;i++){
     await sleep(1000)
     setTimeout(() => {
-      document.getElementById("greenButton").style.backgroundColor="rgb(0, 117, 35)";
-      document.getElementById("redButton").style.backgroundColor="rgb(85, 2, 2)";
-      document.getElementById("yellowButton").style.backgroundColor="rgb(110, 110, 1)";
-      document.getElementById("blueButton").style.backgroundColor="rgb(23, 25, 126)";
+      //turns button to an off colour 
+      document.getElementById("greenButton").style.backgroundColor="";
+      document.getElementById("redButton").style.backgroundColor="";
+      document.getElementById("yellowButton").style.backgroundColor="";
+      document.getElementById("blueButton").style.backgroundColor="";
     }, 700);
+    //turns button to an on colour
     document.getElementById("greenButton").style.backgroundColor="rgb(2, 255, 78)";
     document.getElementById("redButton").style.backgroundColor="rgb(226, 12, 12)";
     document.getElementById("yellowButton").style.backgroundColor="rgb(248, 248, 8)";
     document.getElementById("blueButton").style.backgroundColor="rgb(97, 99, 231)";
   }
 }
-
 
 const sleep = (time) => {
   //helps set time delay
