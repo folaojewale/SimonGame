@@ -1,5 +1,5 @@
 // code reference https://www.youtube.com/watch?v=W0MxUHlZo6U
-
+// add 5 second timer 
 const greenbutton = document.querySelector(".green")
 const redbutton = document.querySelector(".red")
 const yellowbutton = document.querySelector(".yellow")
@@ -89,10 +89,8 @@ const onButton = async () => {
   proceed = true;
 }
 
-
-//code that works 
 const gameOver = async() =>{
-  await flashAmount(3);
+  await flashAmount(5);
   await sleep(700)
   //checks if the current score is greater than the highscore after failure and changes the highscore if so.
     if(document.getElementById("currentScore").innerHTML > document.getElementById("highscore").innerHTML){
@@ -102,7 +100,6 @@ const gameOver = async() =>{
   // changes the button back to red.
   document.getElementById("onOff").style.backgroundColor = "red";
 }
-
 
 const lightOn= async()=>{
   //turns the button green
