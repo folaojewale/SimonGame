@@ -1,5 +1,5 @@
 // code reference https://www.youtube.com/watch?v=W0MxUHlZo6U
-// add 5 second timer not implemented :C
+// add 5 second timer 
 const greenbutton = document.querySelector(".green")
 const redbutton = document.querySelector(".red")
 const yellowbutton = document.querySelector(".yellow")
@@ -8,9 +8,8 @@ const bluebutton = document.querySelector(".blue")
 let time = 1000;
 //added to control wether or not the user and start clicking buttons
 let proceed = false;
-//5 second timer
-var time_5 = true;
-var tresspass = this;
+
+let time_5 = true;
 
 const buttons = () =>{
   const colours =[
@@ -54,24 +53,25 @@ const flash = circle =>{
   })
 }
 
-//circle us the button parameter 
 const game = circle => {
   if(!proceed)return;
   const ans = playerOrder.shift();
-  
-  //5 second timer (may be dodgey)
-  time_5 = true;
-  const check = setTimeout(timer_5,3000)
-  console.log(check+" 2");
-
   //continuosuly compares the the current position in sequnce to the parameter 
-  if(ans===circle && check){
-    console.log(check+" 3")
+
+  const myTimeout = setTimeout(() => {
+    proceed = false;
+    order = [buttons()];
+    playerOrder = [...order]; 
+    gameOver();
+  }, 5000);
+  if(ans===circle){
+    clearTimeout(myTimeout);
     //checks if the player has answered all the sequences 
     if(playerOrder.length===0){
+      time_5 = true;
       //progress if the correct button is clicked
       order.push(buttons())
-      //time decreases based on the length of the sequence or score
+      //time increses based on the length of the sequence 
       if(order.length>4){time = 800}
       if(order.length>8){time = 600}
       if(order.length>12){time = 400}
@@ -82,9 +82,6 @@ const game = circle => {
   else{
     //failed
     //generates a new order of sequences and copys it to the the new order the player must replay if the player want to play again
-    if (!time_5){
-      console.log("failed")
-    }
     proceed = false;
     order = [buttons()];
     playerOrder = [...order]; 
@@ -94,7 +91,7 @@ const game = circle => {
 const onButton = async () => {
   proceed = false;
   if(order.length>1){
-    await flashAmount(2);
+    await flashAmount(1);
      document.getElementById("currentScore").innerHTML++;
   }
   await sleep(1500)
@@ -116,9 +113,7 @@ const gameOver = async() =>{
   document.getElementById("onOff").style.backgroundColor = "red";
 }
 
-const lightOn= ()=>{
-  //if the button is already green just return anything that enters
-  if(document.getElementById("onOff").style.backgroundColor==="green")return;
+const lightOn= async()=>{
   //turns the button green
   document.getElementById("onOff").style.backgroundColor = "green";
   //** 3 SECOND DELAY**/
@@ -148,5 +143,4 @@ const flashAmount = async (X) => {
 const sleep = (time) => {
   //helps set time delay
   return new Promise((resolve) => setTimeout(resolve, time))
-}
-function timer_5(){time_5 = false;}
+  }
