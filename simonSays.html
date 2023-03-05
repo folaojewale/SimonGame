@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Simson Says</title>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="simonSays_style.css">
         <script src="simonSays_function.js" defer></script>
     </head>
@@ -12,9 +13,9 @@
             </div>
             <div class="buttonheight">
             <button id="highscore">00</button>
-            <button id= "Start" class="Start" onclick="lightOn()" >Start</button>
-            <button id="currentScore">00</button> 
-            <button  class="circle green" id="greenButton" onclick="game(event.currentTarget)"></button>
+            <button id= "Start" class="Start" onclick="lightOn()">START</button>
+            <button id="currentScore">09</button> 
+            <button  class="circle green" id="greenButton" onclick="game(event.currentTarget)"></button> <!-- game(event.currentTarget) takes in the class and compares it to button clicked by player-->
             <button class="circle blue" id="blueButton" onclick="game(event.currentTarget)"></button>
             <button class="circle red" id="redButton" onclick="game(event.currentTarget)"></button>
             <button class="circle yellow" id="yellowButton" onclick="game(event.currentTarget)"></button>

@@ -1,5 +1,13 @@
-// code reference https://www.youtube.com/watch?v=W0MxUHlZo6U
-// add 5 second timer 
+// code reference https://www.youtube.com/watch?v=W0MxUHlZo6U           by the way my brother got 24 :) and i got 12 :C          |EASY TO READ IN DARK MODE|
+/* CODE FINDER INDEX student - 21390003
+1. Start after 3 seconds LINE 132 - 140
+2. Flash signal LINE 39 - 66, LINE 109 - 111. Player repeat signal LINE 68 - 96.
+3. Add on an extra sequence LINE 79 - 86. Player repeat signal LINE 68 - 96.
+4. Add on an extra sequence LINE 79.
+5. If everything is correct LINE 77. Speed up intervals LINE 81 - 83.
+6. If you fail a sequence LINE 88 - 96. If you take more than 5 seconds LINE 115(countdown timer called), LINE 166 - 171(countdown function), LINE 119(flash function called), LINE 142 - 159(flash function), LINE 118 - 130(gameOver function).
+7. LINE 118 - 130(highscore) LINE 102 - 105 (current score).
+*/ 
 const greenbutton = document.querySelector(".green")
 const redbutton = document.querySelector(".red")
 const yellowbutton = document.querySelector(".yellow")
@@ -7,9 +15,11 @@ const bluebutton = document.querySelector(".blue")
 //created to allow the interval time to changed
 let time = 1000;
 //added to control wether or not the user and start clicking buttons
-let proceed = false;
-
-let time_5 = true;
+var proceed = false;
+//5 second timer
+var countDown;
+// score tracker
+let score =1;
 
 const buttons = () =>{
   const colours =[
@@ -27,6 +37,7 @@ let playerOrder = [...order];
 
 //flash takes in a parameter from the colours array and turn is on and off based on the class name
 const flash = circle =>{
+  //adds the _Active classes
   return new Promise((resolve, reject) => {
     if(circle.className==='circle red'){
       circle.className += ' redActive';
@@ -40,6 +51,7 @@ const flash = circle =>{
     if(circle.className==='circle green'){
       circle.className += ' greenActive';
     }
+    //removes the _Active classes
     setTimeout(() => {
       circle.className = circle.className.replace(" redActive",'')
       circle.className = circle.className.replace(" yellowActive",'')
@@ -55,21 +67,15 @@ const flash = circle =>{
 
 const game = circle => {
   if(!proceed)return;
+  //stores first element in the array and removes it from the original array
   const ans = playerOrder.shift();
   //continuosuly compares the the current position in sequnce to the parameter 
-
-  const myTimeout = setTimeout(() => {
-    proceed = false;
-    order = [buttons()];
-    playerOrder = [...order]; 
-    gameOver();
-  }, 5000);
   if(ans===circle){
-    clearTimeout(myTimeout);
+    //clears timeout if answer 
+    clearTimeout(countDown);
     //checks if the player has answered all the sequences 
     if(playerOrder.length===0){
-      time_5 = true;
-      //progress if the correct button is clicked
+      //progress if the correct button is clicked, pushes new random button to the games order and NOT the players order
       order.push(buttons())
       //time increses based on the length of the sequence 
       if(order.length>4){time = 800}
@@ -88,32 +94,44 @@ const game = circle => {
     gameOver();
   }
 }
+
 const onButton = async () => {
+  //disables clicking
   proceed = false;
   if(order.length>1){
-    await flashAmount(1);
-     document.getElementById("currentScore").innerHTML++;
+  //adds to score once game function has been called as the player has guessed correctly, ternary operator is used here before score++;
+  (order.length<10)?document.getElementById("currentScore").innerHTML='0'+score.toString():
+  document.getElementById("currentScore").innerHTML=score.toString();
+  score++;
   }
   await sleep(1500)
+  //calls sequence 
   for(const colours of order){
     await flash(colours);
   }
+  //enables clicking
   proceed = true;
+  //5 second timer for player to guess
+  countDown = setTimeout(countDown_5,5000);
 }
 
 const gameOver = async() =>{
   await flashAmount(5);
   await sleep(700)
   //checks if the current score is greater than the highscore after failure and changes the highscore if so.
-    if(document.getElementById("currentScore").innerHTML > document.getElementById("highscore").innerHTML){
-      document.getElementById('highscore').innerHTML = document.getElementById("currentScore").innerHTML;
-      document.getElementById("currentScore").innerHTML ="00";
+  if(document.getElementById("currentScore").innerHTML > document.getElementById("highscore").innerHTML){
+    document.getElementById('highscore').innerHTML = document.getElementById("currentScore").innerHTML
   }
+  //resets score
+  score=1;
+  document.getElementById("currentScore").innerHTML ="00";
   // changes the button back to red.
   document.getElementById("onOff").style.backgroundColor = "red";
 }
 
 const lightOn= async()=>{
+  //checks if the button is already green
+  if(document.getElementById("onOff").style.backgroundColor === "green"){return;}
   //turns the button green
   document.getElementById("onOff").style.backgroundColor = "green";
   //** 3 SECOND DELAY**/
@@ -144,3 +162,10 @@ const sleep = (time) => {
   //helps set time delay
   return new Promise((resolve) => setTimeout(resolve, time))
   }
+
+const countDown_5 = () =>{
+  proceed = false;
+  order = [buttons()];
+  playerOrder = [...order]; 
+  gameOver();
+}
