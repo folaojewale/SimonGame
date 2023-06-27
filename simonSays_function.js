@@ -1,5 +1,3 @@
-// code reference https://www.youtube.com/watch?v=W0MxUHlZo6U           by the way my brother got 24 :) and i got 12 :C          |EASY TO READ IN DARK MODE|
-/* CODE FINDER INDEX student - 21390003
 1. Start after 3 seconds LINE 132 - 140
 2. Flash signal LINE 39 - 66, LINE 109 - 111. Player repeat signal LINE 68 - 96.
 3. Add on an extra sequence LINE 79 - 86. Player repeat signal LINE 68 - 96.
